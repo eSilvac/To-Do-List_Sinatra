@@ -1,0 +1,57 @@
+html, .principal , #Tareas {
+	background-color: whitesmoke;
+	font-size: 19px;	
+}
+
+.container{
+	background-color: white;
+}
+
+#Tareas {
+	border-radius: 10px;
+}
+
+ #Boton{
+ 	margin: 30px 0;
+	padding: 7px 20px;	
+	font-size: 19px
+ }
+
+ .tareaporhacer{
+ 	border: 1px black solid;
+ 	border-radius: 10px;
+ 	background-color: #CCCCCC;
+ 	margin: 15px 0;
+ 	padding: 10px
+
+ }
+
+ #Tareas{
+ 	padding: 20px 0;
+ 	border: 1px #D7D7D7 solid
+ }
+
+ #prueba , #prueba1 {
+ 	display: inline-block;
+ }
+
+#prueba1{
+	float: right;	
+}
+ #navs{
+ 	margin-top:30px;
+ }
+
+#mensaje{
+ 	margin: 60px 0;
+ }
+
+ #texto {
+ 	margin: 50px 0;
+ }
+
+ #cambioUsuario{
+ 	font-size: 15px;
+ 	text-decoration: none;
+ 	color: black;
+ }

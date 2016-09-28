@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>To Do List</title>
+	<link rel="stylesheet" href="CSS/style-home.css" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+	<% @nombre = @ary[0] %>
+	<% i = 1 %>
+	<% k = 1 %>
+	<% cont1 = 0 %>
+	<% cont2 = 0 %>
+	<div class="principal">
+		<div class="container">
+			<div class="row" id="Titulo">
+				<div class="col-xs-6 col-xs-offset-3">
+					<h1 class="text-center">Bienvenido <%= @nombre["title"] %>!</h1>
+					<h4 class="text-center"> Esta es tu lista de tareas.</h4>
+				</div>
+			</div>
+			
+			<div class="row" id="navs">
+				<div class="col-xs-6 col-xs-offset-3">
+					<ul class="nav nav-tabs nav-justified">
+					    <li class="active"><a data-toggle="tab" href="#ListaTarea">Tareas Sin Completar</a></li>
+					    <li class=""><a data-toggle="tab" href="#2">Tareas Completas</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="ListaTarea">
+					<div class="row">
+						<div class="col-xs-6 col-xs-offset-3" id="Tareas">
+							<div class="col-xs-10 col-xs-offset-1">
+								<% while i < @ary.length %>
+									<% @actual = @ary[i] %>
+									<% if @actual["done"] == false %>
+										<% cont1 += 1 %>
+										<div class="tareaporhacer">
+											<p class="text-left">
+												<strong> <%= cont1 %>. <%= @actual["title"] %></strong> 
+											</p>
+
+											<form action="/Completar" method="post" id="prueba" >		
+												<input type="hidden" value="<%= @actual["id"] %>" name="compl">
+												<button type="submit" class="btn btn-success"><i class="fa fa-check fa-lg" aria-hidden="true"></i>
+												</button>	
+											</form>
+
+											<form action="/EditarTarea" method="post" id="prueba" >		
+												<input type="hidden" value="<%= i %>" name="posi">
+												<button type="submit" class="btn btn-warning"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
+												</button>	
+											</form>
+
+											<form action="/Borrar" method="post" id="prueba1">		
+												<input type="hidden" value="<%= @actual["id"] %>" name="borr">
+												<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>	
+											</form>
+										</div>
+									<% end %>
+
+									<% i+=1 %> 
+
+								<% end %>
+								<% if cont1 == 0 %>							
+									<h4 class="text-center" id="mensaje">No tienes ninguna Tarea por hacer.</h4>						
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				<div id="2" class="tab-pane fade" >
+					<div class="row">
+						<div class="col-xs-6 col-xs-offset-3" id="Tareas">
+							<div class="col-xs-10 col-xs-offset-1">
+								<% while k < @ary.length %>
+									<% @actual = @ary[k] %>
+									<% if @actual["done"] == true %>
+										<div class="tareaporhacer">
+										<% cont2 += 1 %>
+											<p class="text-left">
+												<strong> <%= cont2 %>. <%= @actual["title"] %></strong> 
+											</p>
+
+											<form action="/Borrar" method="post">		
+												<input type="hidden" value="<%= @actual["id"] %>" name="borr">
+												<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>	
+											</form>
+										</div>
+									<% end %>
+									<% k+=1 %> 
+								<% end %>
+								<% if cont2 == 0 %>								
+									<h4 class="text-center" id="mensaje">No has completado ninguna Tarea.</h4>							
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>		
+
+			<div class="row" id="NuevaTarea">
+				<div class="col-xs-6 col-xs-offset-3">
+					<form action="/NuevaTarea" method="post" class="text-center">
+						<button type="submit" class="btn btn-info" id="Boton">Crear Nueva Tarea</button>
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 ">
+					<div class="text-right">
+						<form action="/CambioUser" method="post">
+							<a href="#" id="cambioUsuario" onclick="$(this).closest('form').submit()">Cambiar Usuario</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

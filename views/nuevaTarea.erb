@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>To Do List</title>
+	<link rel="stylesheet" href="CSS/style-home.css" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="principal">
+		<div class="container">
+			<div class="row" >
+				<div class="col-xs-6 col-xs-offset-3" >
+					<hr>
+					<h2 class="text-center">Agrega una Nueva Tarea</h2>
+				</div>
+			</div>
+
+
+			<div class="row" id="secundario">
+				<div class="col-xs-6 col-xs-offset-3">
+					<form action="/nuevaTareaLista" method="post">
+						<div class="form-group">
+							<div class="text-center">
+								<input type="text" class="form-control"  placeholder="Nueva Tarea" name="Tarea" id="texto">
+								<hr>
+								<button type="submit" class="btn btn-primary" id="Boton">Agregar Tarea</button>
+								<button type="submit" class="btn btn-info" id="Boton" name="Cancelar" value="Si">Cancelar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

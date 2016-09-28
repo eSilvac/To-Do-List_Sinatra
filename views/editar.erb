@@ -1,0 +1,43 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>To Do List</title>
+	<link rel="stylesheet" href="CSS/style-home.css" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<div class="principal">
+		<div class="container">
+			<% nombre = @ary[@pos.to_i] %>
+			<div class="row" >
+				<div class="col-xs-6 col-xs-offset-3" >
+					<hr>
+					<h2 class="text-center">Editar una Tarea</h2>
+					<h3 class="text-center">Vas a Editar la tarea: <strong><%= nombre["title"] %></strong></h3>
+				</div>
+			</div>
+
+
+			<div class="row" id="secundario">
+				<div class="col-xs-6 col-xs-offset-3">
+					<form action="/Cambio" method="post">
+						<div class="form-group">
+							<div class="text-center">
+								<div id="texto">
+									<input type="hidden" name="Posicion" value="<%= @pos %>">
+									<label>Copia el nuevo nombre.</label>
+									<input type="text" class="form-control"  placeholder="" name="Nuevo" >
+								</div>
+								<hr>
+								<button type="submit" class="btn btn-primary" id="Boton"> Editar Tarea </button>
+								<button type="submit" class="btn btn-info" id="Boton" name="Cancelar" value="Si">Cancelar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
