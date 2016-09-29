@@ -8,6 +8,21 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script>
+		$(function() { 
+		    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
+		    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		        // save the latest tab; use cookies if you like 'em better:
+		        localStorage.setItem('lastTab', $(this).attr('href'));
+		    });
+
+		    // go to the latest tab, if it exists:
+		    var lastTab = localStorage.getItem('lastTab');
+		    if (lastTab) {
+		        $('[href="' + lastTab + '"]').tab('show');
+		    }
+		});
+	</script>
 </head>
 <body>
 	<% @nombre = @ary[0] %>
@@ -26,9 +41,9 @@
 			
 			<div class="row" id="navs">
 				<div class="col-xs-6 col-xs-offset-3">
-					<ul class="nav nav-tabs nav-justified">
-					    <li class="active"><a data-toggle="tab" href="#ListaTarea">Tareas Sin Completar</a></li>
-					    <li class=""><a data-toggle="tab" href="#2">Tareas Completas</a></li>
+					<ul class="nav nav-tabs nav-justified" id="myTab">
+					    <li class="active"><a href="#ListaTarea" data-toggle="tab" >Tareas Sin Completar</a></li>
+					    <li class=""><a href="#2" data-toggle="tab" >Tareas Completas</a></li>
 					</ul>
 				</div>
 			</div>
@@ -47,19 +62,19 @@
 												<strong> <%= cont1 %>. <%= @actual["title"] %></strong> 
 											</p>
 
-											<form action="/Completar" method="post" id="prueba" >		
+											<form action="/Completar" method="post" id="BotonD" >		
 												<input type="hidden" value="<%= @actual["id"] %>" name="compl">
 												<button type="submit" class="btn btn-success"><i class="fa fa-check fa-lg" aria-hidden="true"></i>
 												</button>	
 											</form>
 
-											<form action="/EditarTarea" method="post" id="prueba" >		
+											<form action="/EditarTarea" method="post" id="BotonD" >		
 												<input type="hidden" value="<%= i %>" name="posi">
 												<button type="submit" class="btn btn-warning"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
 												</button>	
 											</form>
 
-											<form action="/Borrar" method="post" id="prueba1">		
+											<form action="/Borrar" method="post" id="BotonI">		
 												<input type="hidden" value="<%= @actual["id"] %>" name="borr">
 												<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>	
 											</form>

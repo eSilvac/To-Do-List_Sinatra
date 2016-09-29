@@ -1,7 +1,10 @@
-html, .principal , #Tareas {
+
+html, body, .principal , #Tareas {
+	height: 100%;
 	background-color: whitesmoke;
 	font-size: 19px;	
 }
+
 
 .container{
 	background-color: white;
@@ -31,11 +34,11 @@ html, .principal , #Tareas {
  	border: 1px #D7D7D7 solid
  }
 
- #prueba , #prueba1 {
+ #BotonD , #BotonI {
  	display: inline-block;
  }
 
-#prueba1{
+#BotonI{
 	float: right;	
 }
  #navs{
