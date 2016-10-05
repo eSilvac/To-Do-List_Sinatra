@@ -6,39 +6,29 @@ class Edit
 
 	def initialize(pos,ne)
 		@arr = Tarea.all
-		@temp = @arr
 		@posi = pos + 1 
+		@cont = pos 
 		@nuevo = ne
-		@cont = pos
-		borrar
-		crearNuevo
-		crear
+		todo
+		
 	end
 
-	def borrar
-		while @cont < @arr.length
-			arreglo = @arr[@cont]
-			if arreglo["done"] != true
-				id = arreglo["id"]
-				Tarea.destroy(id)
+	def todo
+		@arr.shift
+		i = 1
+		@arr.each do |actual|
+			if @cont == i
+				Tarea.destroy(actual["id"])
+				Tarea.create(@nuevo)
+			else
+				if actual["done"] != true
+					id = actual["id"] 
+					nombre = actual["title"]
+					Tarea.destroy(id)
+					Tarea.create(nombre)
+				end
 			end
-			@cont+=1
+			i+=1
 		end
 	end
-
-	def crearNuevo
-		Tarea.create(@nuevo)
-	end
-
-	def crear
-		while @posi + 1 <= @temp.length
-			arreglo = @temp[posi]
-			if arreglo["done"] != true
-				nombre = arreglo["title"]
-				Tarea.create(nombre)
-			end
-			@posi+=1
-		end
-	end
-
 end

@@ -10,13 +10,11 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	<script>
 		$(function() { 
-		    // for bootstrap 3 use 'shown.bs.tab', for bootstrap 2 use 'shown' in the next line
 		    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-		        // save the latest tab; use cookies if you like 'em better:
+		    
 		        localStorage.setItem('lastTab', $(this).attr('href'));
 		    });
 
-		    // go to the latest tab, if it exists:
 		    var lastTab = localStorage.getItem('lastTab');
 		    if (lastTab) {
 		        $('[href="' + lastTab + '"]').tab('show');
@@ -25,9 +23,8 @@
 	</script>
 </head>
 <body>
-	<% @nombre = @ary[0] %>
+	<% @nombre = @ary.shift %>
 	<% i = 1 %>
-	<% k = 1 %>
 	<% cont1 = 0 %>
 	<% cont2 = 0 %>
 	<div class="principal">
@@ -53,39 +50,37 @@
 					<div class="row">
 						<div class="col-xs-6 col-xs-offset-3" id="Tareas">
 							<div class="col-xs-10 col-xs-offset-1">
-								<% while i < @ary.length %>
-									<% @actual = @ary[i] %>
-									<% if @actual["done"] == false %>
+								<% @ary.each do |actual| %>			
+									<% if actual["done"] == false %>
 										<% cont1 += 1 %>
 										<div class="tareaporhacer">
 											<p class="text-left">
-												<strong> <%= cont1 %>. <%= @actual["title"] %></strong> 
+												<strong> <%= cont1 %>. <%= actual["title"] %></strong> 
 											</p>
 
 											<form action="/Completar" method="post" id="BotonD" >		
-												<input type="hidden" value="<%= @actual["id"] %>" name="compl">
+												<input type="hidden" value="<%= actual["id"] %>" name="compl">
 												<button type="submit" class="btn btn-success"><i class="fa fa-check fa-lg" aria-hidden="true"></i>
 												</button>	
 											</form>
 
-											<form action="/EditarTarea" method="post" id="BotonD" >		
+											<form action="/to-do-list/editar-tarea" method="post" id="BotonD" >		
 												<input type="hidden" value="<%= i %>" name="posi">
 												<button type="submit" class="btn btn-warning"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i>
 												</button>	
 											</form>
 
 											<form action="/Borrar" method="post" id="BotonI">		
-												<input type="hidden" value="<%= @actual["id"] %>" name="borr">
+												<input type="hidden" value="<%= actual["id"] %>" name="borr">
 												<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>	
 											</form>
 										</div>
 									<% end %>
-
-									<% i+=1 %> 
-
+									<% i+=1 %>
 								<% end %>
+
 								<% if cont1 == 0 %>							
-									<h4 class="text-center" id="mensaje">No tienes ninguna Tarea por hacer.</h4>						
+									<h4 class="text-center" id="mensaje">No tienes ninguna Tarea por hacer.</h4>			
 								<% end %>
 							</div>
 						</div>
@@ -96,25 +91,24 @@
 					<div class="row">
 						<div class="col-xs-6 col-xs-offset-3" id="Tareas">
 							<div class="col-xs-10 col-xs-offset-1">
-								<% while k < @ary.length %>
-									<% @actual = @ary[k] %>
-									<% if @actual["done"] == true %>
+								<% @ary.each do |actual|%>
+									<% if actual["done"] == true %>
 										<div class="tareaporhacer">
 										<% cont2 += 1 %>
 											<p class="text-left">
-												<strong> <%= cont2 %>. <%= @actual["title"] %></strong> 
+												<strong> <%= cont2 %>. <%= actual["title"] %></strong> 
 											</p>
 
 											<form action="/Borrar" method="post">		
-												<input type="hidden" value="<%= @actual["id"] %>" name="borr">
+												<input type="hidden" value="<%= actual["id"] %>" name="borr">
 												<button type="submit" class="btn btn-danger"><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>	
 											</form>
 										</div>
 									<% end %>
-									<% k+=1 %> 
 								<% end %>
+
 								<% if cont2 == 0 %>								
-									<h4 class="text-center" id="mensaje">No has completado ninguna Tarea.</h4>							
+									<h4 class="text-center" id="mensaje">No has completado ninguna Tarea.</h4>				
 								<% end %>
 							</div>
 						</div>
@@ -125,7 +119,7 @@
 
 			<div class="row" id="NuevaTarea">
 				<div class="col-xs-6 col-xs-offset-3">
-					<form action="/NuevaTarea" method="post" class="text-center">
+					<form action="/to-do-list/nueva-tarea" method="post" class="text-center">
 						<button type="submit" class="btn btn-info" id="Boton">Crear Nueva Tarea</button>
 					</form>
 				</div>
